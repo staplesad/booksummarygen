@@ -1,9 +1,12 @@
+from pathlib import Path
+
 import transformers
 from transformers import AutoConfig, AutoTokenizer, AutoModelForCausalLM
 
 def load_model():
-    model_loc = '../finetuned_model'
-    tok_loc = '../finetuned_model/tokenizer'
+    current_dir = Path(__file__).resolve().parent
+    model_loc = current_dir / '../finetuned_model'
+    tok_loc = current_dir / '../finetuned_model/tokenizer'
     model = AutoModelForCausalLM.from_pretrained(model_loc)
     tokenizer = AutoTokenizer.from_pretrained(tok_loc)
     return model, tokenizer
