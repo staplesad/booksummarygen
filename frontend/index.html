@@ -6151,6 +6151,12 @@ var $author$project$Main$update = F2(
 							expect: $elm$http$Http$expectString($author$project$Main$GotGenerated),
 							url: '/gen/' + model.seed
 						}));
+			case 'Refresh':
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{status: $author$project$Main$Blank}),
+					$elm$core$Platform$Cmd$none);
 			case 'Seed':
 				var new_seed = msg.a;
 				return _Utils_Tuple2(
@@ -6179,6 +6185,7 @@ var $author$project$Main$update = F2(
 		}
 	});
 var $author$project$Main$GetBook = {$: 'GetBook'};
+var $author$project$Main$Refresh = {$: 'Refresh'};
 var $author$project$Main$Seed = function (a) {
 	return {$: 'Seed', a: a};
 };
@@ -6328,6 +6335,16 @@ var $author$project$Main$view = function (model) {
 							[
 								$elm$html$Html$text(
 								$author$project$Main$formatText(fullText))
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$Refresh)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Go Back')
 							]))
 					]));
 	}

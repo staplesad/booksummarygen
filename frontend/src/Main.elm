@@ -55,7 +55,7 @@ update msg model =
                 { url = "/gen/" ++ model.seed
                 , expect = Http.expectString GotGenerated})
     Refresh -> ({model | status = Blank},
-                Cmd.None)
+                Cmd.none)
     Seed new_seed ->
       ({model | seed = new_seed}, Cmd.none)
     GotGenerated result ->
