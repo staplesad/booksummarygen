@@ -42,6 +42,7 @@ init _ =
 
 type Msg
   = GetBook
+  | Refresh
   | Seed String
   | GotGenerated (Result Http.Error String)
 
@@ -53,6 +54,8 @@ update msg model =
                 Http.get
                 { url = "/gen/" ++ model.seed
                 , expect = Http.expectString GotGenerated})
+    Refresh -> ({model | status = Blank},
+                Cmd.None)
     Seed new_seed ->
       ({model | seed = new_seed}, Cmd.none)
     GotGenerated result ->
@@ -85,7 +88,7 @@ view model =
           div [] [text "Start generating a story summary: "]
           , input [type_ "title", placeholder placeholder_txt, value model.seed, onInput Seed] []
           -- adding inputs to allow customisation of the model vars
-          , input [type_ "top_p", placeholder ""] []
+          -- , input [type_ "top_p", placeholder ""] []
           , button [onClick GetBook] [text "Generate!"]
           ]
 
@@ -99,6 +102,7 @@ view model =
         div [] [
           h2 [] [text "Generated story summary"]
           , p [] [ text (formatText fullText) ]
+          , button [onClick Refresh] [text "Go Back"]
           ]
 
 formatText : String -> String
